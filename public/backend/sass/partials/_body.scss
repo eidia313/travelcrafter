@@ -1,0 +1,121 @@
+/*main: ../main.scss*/
+
+.empty-itinerary, .empty-departures{
+  display: none;
+}
+
+//Login Page
+$login: '.login';
+#{$login}{
+  height: 100%;
+
+  &__box{
+    &--form{
+      width: 50%;
+    }
+  }
+
+  &__image{
+    padding: 0 60px;
+    background: url('../images/lama.jpg') no-repeat center right;
+    background-size: cover;
+
+    h3{
+      color: #fff;
+      font:{
+        size: 54px;
+        weight: 400;
+      };
+      margin-bottom: 20px;
+      @include text-shadow(1px 1px 3px rgba(150, 150, 150, 1));
+    }
+
+    p{
+      color: #fff;
+      font-size: 20px;
+      @include text-shadow(1px 1px 3px rgba(150, 150, 150, 1));
+
+      span{
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+$main: '.main';
+#{$main}{
+  min-height: 100%;
+  background: $background;
+}
+
+$content: '.content';
+#{$content}{
+  width: calc(100% - 270px);
+
+  &__nodata{
+    padding: 18px 20px;
+    @include border-radius(5px);
+    border: 2px dashed $platinum;
+
+    p{
+      margin-bottom: 0;
+      color: darken($platinum, 30%);
+      font:{
+        size: 14px;
+        weight: 500;
+      }
+    }
+
+    a{
+      text-decoration: underline;
+
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__title{
+    background: $blue_jeans;
+    padding:{
+      top: 40px;
+      left: 30px;
+      right: 30px;
+    };
+    overflow: hidden;
+
+    &--wrap{
+      border-bottom: 1px solid #7aceef;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+    }
+
+    h2{
+      margin: 0;
+      color: #fff;
+      font-weight: 300;
+    }
+  }
+
+  &__body{
+    padding: 30px 15px;
+  }
+}
+
+$itinerary: '.itinerary';
+
+#{$itinerary}{
+  &__day, &__itinerary{
+   display: flex;
+  }
+
+  &__day{
+    width: 75px;
+    margin-right: 10px;
+
+  }
+
+  &__title{
+    width: calc(100% - 85px);
+  }
+}

@@ -1,0 +1,113 @@
+/* main: ../main.scss*/
+#nav{
+	position: relative;
+	width: 100%;
+	background: #fff;
+	padding: 10px;
+	z-index: 105;
+	@include box-shadow(0px 0px 10px 0px rgba(0,0,0,0.2));
+	@include transition(all 0.25s ease-in-out 0s);
+
+	&.show{
+		top: 0!important;
+	}
+
+	.navbar{
+		padding: 0;
+	}
+}
+
+.home #nav{
+	top: -100%;
+	position: fixed;
+  left: 0;
+  width: 100%;
+}
+
+.navbar-nav{
+	padding: 0 15px;
+}
+
+.nav-link{
+	color: $text_color;
+	padding: {
+		left: 15px!important;
+		right: 15px!important;
+	};
+	@include transition(all 0.33s);
+
+
+}
+
+.navbar-searchsocial{
+	li{
+		margin-right: 10px;
+
+		&:last-of-type{
+			margin-right: 0;
+		}
+	}
+
+	a{
+		color: $text_color;
+		@include transition(all 0.33s);
+
+		&:hover{
+			color: $heading_color;
+		}
+	}
+}
+
+.nav__fulldrop{
+	position: absolute;
+	width: calc(100% + 20px);
+	background: lighten($border-color, 5%);
+	left: 0;
+	top: 100%;
+	padding: 20px 0;
+	margin:{
+		left: -10px;
+		right: -10px;
+	};
+	opacity: 0;
+	visibility: hidden;
+	z-index: -1;
+	@include transition(all 0.33s);
+
+	span{
+		display: block;
+		color: $text_color;
+		margin-top: 8px;
+		font:{
+			weight: 600;
+		}
+	}
+
+	li{
+		text-align: center;
+		margin-right: 20px;
+		max-width: 150px;
+
+		&:hover{
+			span{
+				color: $link;
+			}
+		}
+	}
+
+}
+
+.nav-item{
+
+	&:hover{
+		& > .nav-link{
+			color: $link;
+		}
+
+		.nav__fulldrop{
+			opacity: 1;
+			visibility: visible;
+			z-index: 100001;
+		}
+	}
+}

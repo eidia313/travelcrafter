@@ -1,0 +1,60 @@
+/* main: ../main.scss*/
+*{
+	margin: 0;
+	padding: 0;
+} //Reset CSS Simple
+
+ul, ol{
+	list-style-type: none;
+	margin: 0;
+}
+
+a{
+	outline: none;
+
+	&:hover{
+		text-decoration: none;
+	}
+}
+
+body{
+	font:{
+		family: Lato;
+		weight: 400;
+	};
+	color: $text_color;
+}
+
+p{
+	font-size: 16px;
+	line-height: 1.4;
+}
+
+figure{
+	margin: 0;
+}
+
+img{
+	max-width: 100%;
+}
+
+.section-heading{
+	margin-bottom: 70px;
+
+	p{
+		font:{
+			size: 20px;
+			weight: 500;
+		};
+
+		@media screen and (min-width: 1024px){
+			padding: 0 120px;
+		}
+	}
+}
+
+@media (min-width: 1200px){
+	.container{
+		max-width: 1170px;
+	}
+}

@@ -1,0 +1,57 @@
+/* main: ../main.scss*/
+
+h1, h2, h3, h4, h5, h6{
+	font:{
+		family: "Montserrat", san-serif;
+		weight: 600;
+	};
+	line-height: 1.5;
+	margin-bottom: 20px;
+	color: $heading_color;
+
+	a{
+		color: $heading_color;
+
+		&:hover{
+			color: $link;
+		}
+	}
+}
+
+h1, .h1{
+	font:{
+		size: 40px;
+		weight: 700;
+	};
+}
+
+h2, .h2{
+	font: {
+		size: 34px;
+		weight: 700;
+	};
+	margin-bottom: 15px;
+}
+
+h3, .h3{
+	font: {
+		size: 20px;
+	};
+	margin-bottom: 10px;
+}
+
+h4, .h4{
+	font:{
+		size: 18px;
+		weight: 400;
+	};
+}
+
+h5, .h5{
+	font:{
+		size: 16px;
+		weight: 600;
+	};
+	margin-bottom: 5px;
+	color: rgba(0,0,0,0.55);
+}

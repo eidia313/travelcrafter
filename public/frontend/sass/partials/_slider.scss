@@ -1,0 +1,193 @@
+/* main: ../main.scss */
+$slider: ".slider";
+#{$slider}{
+	padding: 60px 0;
+
+	.carousel-inner{
+		@include gradient-radial(rgba(255,255,255,0), rgba(0,0,0,1), #fff, #000);
+		position: relative;
+	}
+
+	&-control{
+		position: absolute;
+		top: 50%;
+		padding: 20px 12px;
+		background: rgba(0,0,0, 0.85);
+		@include transform(translateY(-50%));
+		@include transition(all 0.33s);
+
+		i{
+			font-size: 20px;
+			line-height: 1;
+			color: #fff;
+		}
+
+		&:hover{
+			background: rgba(0,0,0, 0.95);
+		}
+
+		&.prev{
+			left: 0;
+		}
+
+		&.next{
+			right: 0;
+		}
+	}
+
+	&-caption{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		text-align: left;
+		padding: 30px;
+		padding-top: 70px;
+		@include gradient(rgba(0,0,0,0), rgba(0,0,0,0.8), #000, #000);
+
+		h1{
+			margin-bottom: 10px;
+			color: #fff;
+		}
+
+		p{
+			margin: 0;
+			font-size: 18px;
+			color: #fff;
+		}
+	}
+}
+
+
+//Activities Slider
+
+
+$activity: ".activity";
+
+#{$activity}{
+
+	&__det{
+		margin-top: 20px;
+	}
+}
+
+$actctrl: ".actctrl";
+
+#{$actctrl}{
+	width: 100%;
+
+	&__dots, &__navs{
+		margin-bottom: 20px;
+
+		&.disabled{
+			display: none;
+		}
+	}
+
+	&__dots{
+
+		& > div{
+			display: inline-block;
+			margin-right: 5px;
+
+			&:last-child{
+				margin-right: 0;
+			}
+		}
+
+		span{
+			display: block;
+			width: 14px;
+			height: 14px;
+			border: 2px solid $slider_control;
+			@include border-radius(50%);
+		}
+
+		& > div.active{
+			span{
+				background: $slider_control;
+			}
+		}
+	}
+
+	&__navs{
+		.owl-prev, .owl-next{
+			display: inline-block;
+			cursor: pointer;
+			margin-right: 10px;
+
+			i{
+				color: $slider_control;
+
+				&:hover{
+					color: $text_color;
+				}
+			}
+		}
+
+		.owl-next{
+			margin-right: 0;
+		}
+	}
+}
+
+$tsctrl: ".tsctrl";
+
+#{$tsctrl}{
+	margin-top: 40px;
+	width: 100%;
+
+	&__dots, &__navs{
+		margin-bottom: 20px;
+
+		&.disabled{
+			display: none;
+		}
+	}
+
+	&__dots{
+
+		& > div{
+			display: inline-block;
+			margin-right: 5px;
+
+			&:last-child{
+				margin-right: 0;
+			}
+		}
+
+		span{
+			display: block;
+			width: 14px;
+			height: 14px;
+			border: 2px solid $slider_control;
+			@include border-radius(50%);
+		}
+
+		& > div.active{
+			span{
+				background: $slider_control;
+			}
+		}
+	}
+
+	&__navs{
+		.owl-prev, .owl-next{
+			display: inline-block;
+			cursor: pointer;
+			margin-right: 10px;
+
+			i{
+				color: $slider_control;
+
+				&:hover{
+					color: $text_color;
+				}
+			}
+		}
+
+		.owl-next{
+			margin-right: 0;
+		}
+	}
+}

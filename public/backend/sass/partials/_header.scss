@@ -1,0 +1,50 @@
+/*main: ../main.scss*/
+
+$header: '.header';
+#{$header}{
+  padding: 20px 15px;
+  background: $brand_color;
+
+  &__nav{
+    li{
+      margin-right: 30px;
+
+      i{
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+
+      a{
+        text-transform: uppercase;
+        font:{
+          size: 14px;
+          weight: 500;
+        }
+        color: #fff;
+      }
+
+      &.active{
+        a{
+          color: darken($brand_color, 60%);
+        }
+      }
+    }
+  }
+
+  &__profile{
+    &--badge{
+      span{
+        cursor: default;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        display: inline-block;
+        vertical-align: middle;
+        @include border-radius(3px);
+        background: #fff;
+        color: lighten(#575757, 52%);
+      }
+    }
+  }
+}

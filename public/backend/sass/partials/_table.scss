@@ -1,0 +1,66 @@
+/*main: ../main.scss*/
+.dash-table{
+	width: 100%;
+	border-collapse: separate;
+  border-spacing: 0;
+
+  th, td{
+    border: none;
+  }
+
+	th{
+		padding: 6px 20px;
+		font:{
+			size: 14px;
+			weight: 500;
+		};
+		background: $platinum;
+
+    &.actions{
+      width: 125px;
+    }
+	}
+
+	td{
+		padding: 20px;
+		background: #fff;
+		font-size: 16px;
+    vertical-align: middle;
+    border-bottom: 3px solid $background;
+
+		a{
+			color: $taupe_gray;
+			@include transition(all 0.33s);
+
+			&:hover{
+				color: $blue_jeans;
+			}
+		}
+	}
+
+	ul.action{
+		font-size: 0;
+		text-align: right;
+
+		li{
+			display: inline-block;
+			font-size: 14px;
+			vertical-align: middle;
+			line-height: 1;
+      margin-right: 20px;
+
+      &:last-of-type{
+        margin-right: 0;
+      }
+
+      a{
+        color: $taupe_gray;
+        @include transition(color 0.33s);
+
+        &:hover{
+          color: $blue_jeans;
+        }
+      }
+		}
+	}
+}

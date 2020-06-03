@@ -1,0 +1,20 @@
+/*main: ../main.scss*/
+
+$footer: '.footer';
+#{$footer}{
+  padding: {
+    top: 30px;
+    bottom: 30px;
+  };
+  border-top: 1px solid #dcdcdc;
+  margin: {
+    left: 30px;
+    right: 30px;
+  };
+  color: #898888;
+  font-size: 14px;
+
+  p{
+    margin-bottom: 0;
+  }
+}

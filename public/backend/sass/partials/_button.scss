@@ -1,0 +1,44 @@
+/*main: ../main.scss*/
+
+.btn{
+  border: none;
+  padding: 12px 30px;
+  line-height: 1;
+  font:{
+    size: 14px;
+  };
+  @include transition('color 0.33s, background-color 0.33s');
+
+  &-primary{
+    background-color: $brand_color;
+
+    &:hover{
+      background-color: darken($brand_color, 10%);
+    }
+  }
+
+  &-secondary{
+    background-color: $blue;
+
+    &:hover{
+      background-color: darken($blue, 10%);
+    }
+  }
+
+  &-default{
+    background-color: $jet_black;
+    color: #fff;
+
+    &:hover{
+      color: #fff;
+      background-color: darken($jet_black, 10%);
+    }
+  }
+
+  &-wide{
+    padding:{
+      left: 60px;
+      right: 60px;
+    }
+  }
+}

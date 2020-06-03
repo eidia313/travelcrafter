@@ -1,0 +1,116 @@
+/* main: ../main.scss*/
+$footer: ".footer";
+
+#{$footer}{
+
+	position: relative;
+
+	&__top{
+		background: $dark_color;
+		padding: 60px 0;
+	}
+
+	h6{
+		text-transform: uppercase;
+		color: rgba(255,255,255,0.9);
+	}
+
+	&__nav{
+		li{
+			padding-right: 30px;
+
+			&:last-child{
+				padding-right: 0;
+			}
+
+			a{
+				color: rgba(255,255,255,0.75);
+				font-size: 14px;
+				@include transition(all 0.33s);
+
+				&:hover{
+					color: #fff;
+				}
+			}
+		}
+	}
+
+	&__copy{
+		padding: 40px 0;
+		background: #fff;
+	}
+
+	&__assoc{
+		li{
+			display: inline-block;
+			margin-right: 3px;
+			vertical-align: middle;
+		}
+	}
+
+	&__copyright{
+		&--copy{
+				padding-right: 40px;
+				border-right: 1px solid $border-color;
+				max-width: 390px;
+
+				p{
+					font-size: 14px;
+					margin: 0;
+				}
+		}
+
+		&--logo{
+			padding-left: 40px;
+		}
+
+	}
+}
+
+$newsletter: '.newsletter';
+#{$newsletter}{
+	p{
+		color: rgba(255,255,255,0.75);
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	&__form{
+		.form-control{
+			border: none;
+			max-width: 280px;
+			margin-right: 10px;
+			@include border-radius(0);
+		}
+
+		.btn{
+			padding: {
+				top: 9px;
+				bottom: 9px;
+			};
+			line-height: 1.45;
+		}
+	}
+}
+
+.response, div.mce_inline_error{
+	margin-top: 10px!important;
+	padding: 8px 20px!important;
+	@include border-radius(4px);
+	font:{
+		size: 12px;
+		weight: 400!important;
+	};
+}
+
+#mce-error-response, div.mce_inline_error{
+	color: #721c24!important;
+  background-color: #f8d7da!important;
+  border-color: #f5c6cb!important;
+}
+
+#mce-success-response{
+	color: #155724;
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+}

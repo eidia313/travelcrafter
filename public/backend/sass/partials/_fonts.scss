@@ -1,0 +1,59 @@
+/*main: ../main.scss*/
+@charset "UTF-8";
+
+@font-face {
+  font-family: "travelcrafter";
+  src:url("fonts/travelcrafter.eot");
+  src:url("fonts/travelcrafter.eot?#iefix") format("embedded-opentype"),
+    url("fonts/travelcrafter.woff") format("woff"),
+    url("fonts/travelcrafter.ttf") format("truetype"),
+    url("fonts/travelcrafter.svg#travelcrafter") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "travelcrafter" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="tc-"]:before,
+[class*=" tc-"]:before {
+  font-family: "travelcrafter" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tc-blog:before {
+  content: "\61";
+}
+.tc-delete:before {
+  content: "\62";
+}
+.tc-home:before {
+  content: "\63";
+}
+.tc-edit:before {
+  content: "\64";
+}
+.tc-picture:before {
+  content: "\65";
+}
+.tc-photo:before {
+  content: "\66";
+}

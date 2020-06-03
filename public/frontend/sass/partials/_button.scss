@@ -1,0 +1,65 @@
+/* main: ../main.scss*/
+.text-link{
+	color: $main_color;
+	font:{
+		size: 14px;
+	};
+
+	&:hover{
+		text-decoration: underline;
+		color: $main_color;
+	}
+}
+
+.btn{
+	@include border-radius(0);
+	padding: 11px 15px;
+	border: none;
+
+	&-ghost{
+		background-color: transparent;
+		border: 2px solid #fff;
+		color: #fff;
+		@include transition(all 0.33s);
+
+		&:hover{
+			background-color: #fff;
+			color: $dark_color;
+		}
+	}
+
+	&-secondary{
+		background-color: $main_color;
+		color: $dark_color;
+	}
+
+	&-fw{
+		width: 100%;
+	}
+
+	&-white{
+		background: rgba(255,255,255,0.8);
+		color: $link;
+
+		&:hover{
+			background: rgba(255,255,255,1);
+
+		}
+	}
+}
+
+$more: '.more';
+#{$more}{
+	padding: 12px 30px;
+
+	&__ghost{
+		border: 1px solid $text_color;
+		color: $text_color;
+		@include transition(all 0.33s);
+
+		&:hover{
+			background-color: $text_color;
+			color: #fff;
+		}
+	}
+}

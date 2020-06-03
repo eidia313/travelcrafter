@@ -1,0 +1,52 @@
+/*main: ../main.scss*/
+@mixin transition($v){
+  -webkit-transition: $v;
+  -moz-transition: $v;
+  transition: $v;
+}
+
+@mixin border-radius($v){
+  -webkit-border-radius: $v;
+  -moz-border-radius: $v;
+  border-radius: $v;
+}
+
+@mixin box-shadow($v){
+  -webkit-box-shadow: $v;
+  -moz-box-shadow: $v;
+  box-shadow: $v;
+}
+
+@mixin translate3d($v){
+  -webkit-translate3d: $v;
+  -moz-translate3d: $v;
+  translate3d: $v;
+}
+
+@mixin transform($value){
+	-webkit-transform: $value;
+	-moz-transform: $value;
+	transform: $value;
+}
+
+@mixin text-shadow($v){
+  -webkit-text-shadow: $v;
+  -moz-text-shadow: $v;
+  text-shadow: $v;
+}
+
+//Placeholder color
+@mixin placeholder($c, $v){
+  #{$c}::-webkit-input-placeholder {
+    color: $v;
+  }
+  #{$c}::-moz-placeholder {
+    color: $v;
+  }
+  #{$c}::-ms-input-placeholder {
+    color: $v;
+  }
+  #{$c}::-moz-placeholder {
+    color: $v;
+  }
+}

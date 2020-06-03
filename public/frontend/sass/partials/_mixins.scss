@@ -1,0 +1,46 @@
+/* main: ../main.scss*/
+@mixin transition($v){
+	-webkit-transition: $v;
+	-moz-transition: $v;
+	transition: $v;
+}
+
+@mixin box-shadow($v){
+	-webkit-box-shadow: $v;
+	-moz-box-shadow: $v;
+	box-shadow: $v;
+}
+
+@mixin transform($v){
+	-webkit-transform: $v;
+	-moz-transform: $v;
+	transform: $v;
+}
+
+@mixin gradient-radial($c1, $c2, $cbc1, $cbc2){
+	background: $c1;
+	background: -moz-radial-gradient(center, ellipse cover, $c1 31%, $c2 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(31%, $c1), color-stop(100%, $c2));
+	background: -webkit-radial-gradient(center, ellipse cover, $c1 31%, $c2 100%);
+	background: -o-radial-gradient(center, ellipse cover, $c1 31%, $c2 100%);
+	background: -ms-radial-gradient(center, ellipse cover, $c1 31%, $c2 100%);
+	background: radial-gradient(ellipse at center, $c1 31%, $c2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$cbc1', endColorstr='$cbc2', GradientType=1 );
+}
+
+@mixin gradient($c1, $c2, $cbc1, $cbc2){
+	background: $c1;
+	background: -moz-linear-gradient(top, $c1 41%, $c2 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(41%, $c1), color-stop(100%, $c2));
+	background: -webkit-linear-gradient(top, $c1 41%, $c2 100%);
+	background: -o-linear-gradient(top, $c1 41%, $c2 100%);
+	background: -ms-linear-gradient(top, $c1 41%, $c2 100%);
+	background: linear-gradient(to bottom, $c1 41%, $c2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$cbc1', endColorstr='$cbc2', GradientType=0 );
+}
+
+@mixin border-radius($v){
+	-webkit-border-radius: $v;
+	-moz-border-radius: $v;
+	border-radius: $v;
+}
