@@ -15,9 +15,10 @@ class DifficultyController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-   public function __construct(Difficulty $difficulty){
-     $this->difficulty = $difficulty;
-   }
+    public function __construct(Difficulty $difficulty)
+    {
+        $this->difficulty = $difficulty;
+    }
 
     public function index()
     {
@@ -32,8 +33,7 @@ class DifficultyController extends Controller
      */
     public function create()
     {
-      return view('backend.packages.difficulty.create');
-
+        return view('backend.packages.difficulty.create');
     }
 
     /**
@@ -44,22 +44,22 @@ class DifficultyController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, [
-         'name' => 'required|unique:difficulty',
-         'image' => 'required|image|mimes:png,jpg,jpeg|dimensions:min_width=100,min_height=100'
-      ]);
+        $this->validate($request, [
+            'name' => 'required|unique:difficulty',
+            'image' => 'required|image|mimes:png,jpg,jpeg|dimensions:min_width=100,min_height=100'
+        ]);
 
-      //File Handle
-      $file = image_upload('image', $request);
+        //File Handle
+        $file = image_upload('image', $request);
 
-      $difficulty = new Difficulty();
-      $difficulty->name = $request->name;
-      $difficulty->desc = $request->desc;
-      $difficulty->image = $file;
+        $difficulty = new Difficulty();
+        $difficulty->name = $request->name;
+        $difficulty->desc = $request->desc;
+        $difficulty->image = $file;
 
-      $difficulty->save();
+        $difficulty->save();
 
-      return redirect()->route('difficulty.index')->with('success', 'Diffulty successfully created!!');
+        return redirect()->route('difficulty.index')->with('success', 'Diffulty successfully created!!');
     }
 
     /**
@@ -82,6 +82,9 @@ class DifficultyController extends Controller
     public function edit($id)
     {
         //
+        $difficulty = $this->difficulty->find($id);
+
+        return view('backend.packages.difficulty.edit')->with(compact('difficulty'));
     }
 
     /**

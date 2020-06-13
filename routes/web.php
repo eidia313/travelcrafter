@@ -10,27 +10,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/clear-config', function() {
+Route::get('/clear-config', function () {
     $exitCode = Artisan::call('config:clear');
     return "config clear";
-
 });
 
-Route::get('/clear-cache', function() {
+Route::get('/clear-cache', function () {
     $exitCode = Artisan::call('cache:clear');
     return "Cache cleared!";
-
 });
 
-Route::get('/migrate', function() {
+Route::get('/migrate', function () {
     $exitCode = Artisan::call('migrate');
     return "Database Migrated";
 });
 
 
-Route::namespace('front')->group(function(){
+Route::namespace('front')->group(function () {
     Route::get('/', 'HomeController@show');
     Route::get('package/{slug}', 'PackageController@showPackage')->name('fe.singlePackage');
+    Route::get('place/{slug}', 'PackageController@showPackage')->name('fe.singlePackage');
     Route::get('activity', 'ActivityController@index')->name('site.activity');
     Route::get('activity/{slug}', 'ActivityController@showActivity');
 
@@ -64,9 +63,9 @@ Route::namespace('front')->group(function(){
     Route::get('pages/{slug}', 'PageController@index')->name('site.page');
 
     //places
-    Route::get('{country}/places','PlacesController@getCountryPlaces')->name('fe.places');
+    Route::get('{country}/places', 'PlacesController@getCountryPlaces')->name('fe.places');
 
-    Route::get('region/packages/{id}','PlacesController@getRegionPackages');
+    Route::get('region/packages/{id}', 'PlacesController@getRegionPackages');
 });
 
 
@@ -75,58 +74,63 @@ Route::namespace('front')->group(function(){
 //     return view('about');
 // })->middleware('auth');
 Route::prefix('admin')->middleware('auth')->group(function () {
-  Route::get('/dashboard', function () {
+    Route::get('/dashboard', function () {
         return view('backend.home');
-  });
+    });
 
-  Route::group(['prefix' => 'destination'], function(){
-    Route::resources([
-        'country' => 'Destination\CountryController',
-        'region' => 'Destination\RegionController',
-        'city' => 'Destination\CityController'
-    ]);
-  });
+    Route::group(['prefix' => 'destination'], function () {
+        Route::resources([
+            'country' => 'Destination\CountryController',
+            'region' => 'Destination\RegionController',
+            'city' => 'Destination\CityController'
+        ]);
+    });
 
-  Route::group(['prefix' => 'activities'], function(){
-    Route::resources([
-        'activity' => 'Activity\ActivityController',
-        'leisure' => 'Destination\PlacesController',
-        'placetype' => 'Places\PlaceTypeController',
-    ]);
-  });
+    Route::group(['prefix' => 'activities', 'namespace'], function () {
+        Route::resources([
+            'activity' => 'Activity\ActivityController',
+            '{activity}/place' => 'Destination\PlacesController',
+            '{activity}/placetype' => 'Places\PlaceTypeController',
+        ]);
 
-  Route::group(['prefix' => 'welfares'], function(){
-    Route::resources([
-        'welfare' => 'Welfare\WelfareController',
-    ]);
-  });
+        /* Route::group(['prefix' => 'leisure'], function () {
+            Route::resource('place', 'Destination\PlacesController');
+            Route::resource('placetype', 'Places\PlaceTypeController');
+        }); */
+    });
 
-  Route::group(['prefix' => 'services'], function(){
-    Route::resources([
-        'service' => 'Services\ServiceController',
-    ]);
-  });
+    Route::group(['prefix' => 'welfares'], function () {
+        Route::resources([
+            'welfare' => 'Welfare\WelfareController',
+        ]);
+    });
 
-  Route::group(['prefix' => 'checklists'], function(){
-    Route::resources([
-        'equipments' => 'Checklist\EquipmentController',
-        'groups' => 'Checklist\ChecklistGroupController',
-        'category' => 'Checklist\CheckListCategoryController',
-    ]);
-  });
+    Route::group(['prefix' => 'services'], function () {
+        Route::resources([
+            'service' => 'Services\ServiceController',
+        ]);
+    });
 
-  Route::group(['prefix' => 'partners'], function(){
-    Route::resources([
-        'ccountry' => 'Contact\CountryController',
-        'clist' => 'Contact\ListController',
-    ]);
-  });
+    Route::group(['prefix' => 'checklists'], function () {
+        Route::resources([
+            'equipments' => 'Checklist\EquipmentController',
+            'groups' => 'Checklist\ChecklistGroupController',
+            'category' => 'Checklist\CheckListCategoryController',
+        ]);
+    });
 
-  Route::group(['prefix' => 'teams'], function(){
-    Route::resources([
-        'team' => 'Team\TeamController',
-    ]);
-  });
+    Route::group(['prefix' => 'partners'], function () {
+        Route::resources([
+            'ccountry' => 'Contact\CountryController',
+            'clist' => 'Contact\ListController',
+        ]);
+    });
+
+    Route::group(['prefix' => 'teams'], function () {
+        Route::resources([
+            'team' => 'Team\TeamController',
+        ]);
+    });
 
 
     Route::resources([
@@ -134,24 +138,24 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     ]);
 
 
-  Route::group(['prefix' => 'packages'], function(){
-    Route::resources([
-        'package' => 'Packages\PackageController',
-        'difficulty' => 'Packages\DifficultyController',
-        'booking' =>  'Packages\BookingController'
-    ]);
+    Route::group(['prefix' => 'packages'], function () {
+        Route::resources([
+            'package' => 'Packages\PackageController',
+            'difficulty' => 'Packages\DifficultyController',
+            'booking' =>  'Packages\BookingController'
+        ]);
 
-      //package images
-      Route::get('gallery/{id}','Packages\PackageGalleryController@getPackageImages')->name('gallery.index');
-      Route::post('gallery','Packages\PackageGalleryController@storeImages')->name('gallery.store');
-      Route::delete('gallery/{id}','Packages\PackageGalleryController@deleteImages')->name('gallery.destroy');
-    /*Route::get('/', 'Inquiry\InquiryController@getTrips');
+        //package images
+        Route::get('gallery/{id}', 'Packages\PackageGalleryController@getPackageImages')->name('gallery.index');
+        Route::post('gallery', 'Packages\PackageGalleryController@storeImages')->name('gallery.store');
+        Route::delete('gallery/{id}', 'Packages\PackageGalleryController@deleteImages')->name('gallery.destroy');
+        /*Route::get('/', 'Inquiry\InquiryController@getTrips');
     Route::delete('inquiry/{id}', 'Inquiry\InquiryController@deleteTrips');*/
-  });
+    });
 
 
 
-    Route::group(['prefix' => 'inquiries'], function(){
+    Route::group(['prefix' => 'inquiries'], function () {
         Route::resource('contact', 'Inquiries\ContactController');
     });
 
@@ -160,17 +164,17 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('faq', 'Faq\FaqController');
     Route::resource('partners', 'Partners\PartnerController');
 
-  //Site Settings
-  Route::group(['prefix' => 'site'], function(){
-    Route::resources([
-        'setting' => 'Setting\SettingController',
-    ]);
-  });
+    //Site Settings
+    Route::group(['prefix' => 'site'], function () {
+        Route::resources([
+            'setting' => 'Setting\SettingController',
+        ]);
+    });
 
-  //tailor trips route
-    Route::get('tailor-made-trips','Trips\TailorController@getAllTrips')->name('admin.trips');
-    Route::get('tailor-made-trips/{id}/details','Trips\TailorController@getTripDetail')->name('admin.trip');
-    Route::delete('tailor-made-trips/{id}','Trips\TailorController@deleteTrip')->name('admin.delete-trip');
+    //tailor trips route
+    Route::get('tailor-made-trips', 'Trips\TailorController@getAllTrips')->name('admin.trips');
+    Route::get('tailor-made-trips/{id}/details', 'Trips\TailorController@getTripDetail')->name('admin.trip');
+    Route::delete('tailor-made-trips/{id}', 'Trips\TailorController@deleteTrip')->name('admin.delete-trip');
 });
 
 Auth::routes();

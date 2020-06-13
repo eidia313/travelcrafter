@@ -16,7 +16,13 @@ class Activity extends Model
         return $this->hasMany('App\Packages\Package');
     }
 
-    public function trip(){
+    public function places()
+    {
+        return $this->hasMany('App\Destination\Place');
+    }
+
+    public function trip()
+    {
         return $this->belongsToMany('App\Tailor\Trip', 'activity_trips', 'activity_id', 'trip_id');
     }
 }

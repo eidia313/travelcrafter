@@ -13,14 +13,15 @@ class PlaceTypeController extends Controller
 
     protected $status = ['published' => 'Published', 'draft' => 'Draft'];
 
-    public function __construct(PlaceType $placetype){
-      $this->placetype = $placetype;
+    public function __construct(PlaceType $placetype)
+    {
+        $this->placetype = $placetype;
     }
 
-    public function index()
+    public function index($activity)
     {
-      $placetype = $this->placetype->orderBy('id', 'desc')->get();
-      return view('backend.places.placetype.index')->with(compact('placetype'));
+        $placetype = $this->placetype->orderBy('id', 'desc')->get();
+        return view('backend.places.placetype.index')->with(compact('placetype', 'activity'));
     }
 
     /**
@@ -28,10 +29,10 @@ class PlaceTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($activity)
     {
         $status = $this->status;
-        return view('backend.places.placetype.create')->with(compact('status'));
+        return view('backend.places.placetype.create')->with(compact('status', 'activity'));
     }
 
     /**
@@ -42,16 +43,16 @@ class PlaceTypeController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, [
-        'name' => 'required|unique:placetype',
-      ]);
+        $this->validate($request, [
+            'name' => 'required|unique:placetype',
+        ]);
 
-     $this->placetype->create([
-       'name' => $request['name'],
-       'status' => $request['status']
-     ]);
+        $this->placetype->create([
+            'name' => $request['name'],
+            'status' => $request['status']
+        ]);
 
-     return redirect()->route('placetype.index')->with('success', 'Place Type Successfully Created!');
+        return redirect()->route('placetype.index')->with('success', 'Place Type Successfully Created!');
     }
 
     /**
@@ -71,11 +72,11 @@ class PlaceTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($activity, $id)
     {
-      $placetype = $this->placetype->find($id);
-      $status = $this->status;
-      return view('backend.places.placetype.edit')->with(compact('placetype','status'));
+        $placetype = $this->placetype->find($id);
+        $status = $this->status;
+        return view('backend.places.placetype.edit')->with(compact('placetype', 'status', 'activity'));
     }
 
     /**
@@ -87,15 +88,15 @@ class PlaceTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-      try{
-        $placetype = $this->placetype->find($id);
-        $placetype->name = $request['name'];
-        $placetype->status = $request['status'];
-        $placetype->save();
-        return redirect()->route('placetype.index')->with('success', 'Place Type Successfully Updated!');
-      }catch(\Exception $e){
-        return redirect()->back()->with('error', 'Errors in field!');
-      }
+        try {
+            $placetype = $this->placetype->find($id);
+            $placetype->name = $request['name'];
+            $placetype->status = $request['status'];
+            $placetype->save();
+            return redirect()->route('placetype.index')->with('success', 'Place Type Successfully Updated!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Errors in field!');
+        }
     }
 
     /**
@@ -104,11 +105,11 @@ class PlaceTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($activity, $id)
     {
-      $placetype = PlaceType::findOrFail($id);
-      $placetype->delete();
-      Session::flash('success', 'Place type was Deleted!');
-      return redirect()->route('placetype.index');
+        $placetype = PlaceType::findOrFail($id);
+        $placetype->delete();
+        Session::flash('success', 'Place type was Deleted!');
+        return redirect()->route('placetype.index', $activity);
     }
 }

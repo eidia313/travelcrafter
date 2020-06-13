@@ -21,7 +21,7 @@ class EquipmentController extends Controller
         //
         $equipments = Equipment::with('category')->latest()->paginate(12);
 
-        return view('backend.checklists.checklist.index',compact('equipments'));
+        return view('backend.checklists.checklist.index', compact('equipments'));
     }
 
     /**
@@ -34,7 +34,7 @@ class EquipmentController extends Controller
         //
         $categories = CheckListCategory::latest()->get();
 
-        return view('backend.checklists.checklist.create')->with(compact('category','categories'));
+        return view('backend.checklists.checklist.create')->with(compact('categories'));
     }
 
     /**
@@ -51,7 +51,7 @@ class EquipmentController extends Controller
             'category_id' => 'required',
         ]);
 
-        $equipment=new Equipment();
+        $equipment = new Equipment();
 
         $equipment->name = $request->name;
         $equipment->category_id = $request->category_id;
@@ -87,7 +87,7 @@ class EquipmentController extends Controller
 
         $categories = CheckListCategory::latest()->get();
 
-        return view('backend.checklists.checklist.edit',compact('equipment','categories'));
+        return view('backend.checklists.checklist.edit', compact('equipment', 'categories'));
     }
 
     /**
@@ -101,11 +101,11 @@ class EquipmentController extends Controller
     {
         //validate
         $this->validate($request, [
-            'name' => 'required|max:191|unique:equipment,name,'.$id,
+            'name' => 'required|max:191|unique:equipment,name,' . $id,
             'category_id' => 'required',
         ]);
 
-        $equipment=Equipment::findOrFail($id);
+        $equipment = Equipment::findOrFail($id);
 
         $equipment->name = $request->name;
         $equipment->category_id = $request->category_id;
@@ -125,7 +125,7 @@ class EquipmentController extends Controller
     public function destroy($id)
     {
         //
-        $equipment= Equipment::findOrFail($id);
+        $equipment = Equipment::findOrFail($id);
 
 
         $equipment->delete();

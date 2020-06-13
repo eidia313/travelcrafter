@@ -2,30 +2,12 @@
 @section('pageTitle', 'Edit Difficulty')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-7">
-            @if ($errors->any())
-                <div class="">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="alert alert-danger">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="card">
-                <div class="card-body">
-                    {!! Form::open(['method'=>'POST', 'route'=>'[difficulty.update', $difficulty->id], 'files' => true,  'enctype' => 'multipart/form-data', 'id' => 'difficultyform']) !!}
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    @include('backend.packages.difficulty.partial.form')
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-secondary">Update</button>
-                        <a href="{{route('difficulty.index')}}" class="btn btn-primary">Cancel</a>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
+{!! Form::model($difficulty, ['method'=>'PUT', 'route'=>['difficulty.update', $difficulty->id], 'files' => true,
+'enctype' => 'multipart/form-data']) !!}
+@include('backend.packages.difficulty.partial.form', ['formMode' => 'edit'])
+{!! Form::close() !!}
+@endsection
 
-        </div>
-    </div>
+@section('js')
+<script src="{{ asset('backend/js/image.js') }}"></script>
 @endsection

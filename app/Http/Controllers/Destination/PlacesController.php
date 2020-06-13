@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Destination;
 
+use App\Activities\Activity;
+use App\Activities\ActivityType;
 use App\Destination\Country;
 use App\Places\PlaceType;
 use App\Destination\Place;
+use App\Destination\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,12 +21,19 @@ class PlacesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($activity)
     {
         //
-        $places = Place::with(['country','city'])->latest()->paginate(12);
 
-        return view('backend.destination.places.index',compact('places'));
+        $placesActivity = Activity::where('name', $activity)->first();
+
+        if (!empty($placesActivity)) {
+            $places = Place::with(['country', 'city'])->where('activity_id', $placesActivity->id)->latest()->paginate(12);
+        } else {
+            $places = [];
+        }
+
+        return view('backend.destination.places.index', compact('places', 'activity'));
     }
 
     /**
@@ -31,13 +41,17 @@ class PlacesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($activity)
     {
         //
         $countries = Country::with('cities')->get();
-        $placetype = PlaceType::where('status','!=', 'draft' )->get();
+        $placetype = PlaceType::where('status', '!=', 'draft')->get();
 
-        return view('backend.destination.places.create',compact(['countries', 'placetype']));
+        $placesActivity = Activity::where('name', $activity)->first();
+
+        $regions = Region::where('status', '!=', 'draft')->get();
+
+        return view('backend.destination.places.create', compact(['countries', 'placetype', 'activity', 'regions', 'placesActivity']));
     }
 
     /**
@@ -48,11 +62,12 @@ class PlacesController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->activity);
         //validate
         $this->validate($request, [
             'name' => 'required|max:191|unique:places,name',
             'city_id' => 'required',
-            'image' => 'sometimes|nullable|image',
+            'cover_image' => 'sometimes|nullable|image',
             'altitude' => 'max:191',
         ]);
 
@@ -68,21 +83,23 @@ class PlacesController extends Controller
         $place->name = $request->name;
         $place->slug = $slug;
         $place->city_id = $cityId;
+        $place->activity_id = $request->activity_id;
+        $place->region_id = $request->region_id;
         $place->place_type_id = $request->place_type_id;
         $place->country_id = $countryId;
         $place->altitude = $request->altitude;
         $place->description = $request->description;
 
-        if (!empty($request['image'])){
-            $place->image = image_upload('image', $request);
+        if (!empty($request['cover_image'])) {
+            $place->cover_image = image_upload('cover_image', $request);
         }
 
         $place->save();
 
+        $activity = Activity::where('id', $request->activity_id)->first();
+
         Session::flash('success', 'New Activity Was Added!');
-        return redirect()->route('leisure.index');
-
-
+        return redirect()->route('place.index', $activity->name);
     }
 
     /**
@@ -102,14 +119,18 @@ class PlacesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($activity, $id)
     {
         //
         $place = Place::findOrFail($id);
 
+        $regions = Region::where('status', '!=', 'draft')->get();
+
         $countries = Country::with('cities')->get();
-        $placetype = PlaceType::where('status','!=', 'draft' )->get();
-        return view('backend.destination.places.edit',compact('place','countries', 'placetype'));
+        $placetype = PlaceType::where('status', '!=', 'draft')->get();
+        $placesActivity = Activity::where('name', $activity)->first();
+
+        return view('backend.destination.places.edit', compact('place', 'countries', 'placetype', 'activity', 'regions', 'placesActivity'));
     }
 
     /**
@@ -123,9 +144,9 @@ class PlacesController extends Controller
     {
         //validate
         $this->validate($request, [
-            'name' => 'required|max:191|unique:places,name,'.$id,
+            'name' => 'required|max:191|unique:places,name,' . $id,
             'city_id' => 'required',
-            'image' => 'sometimes|nullable|image',
+            'cover_image' => 'sometimes|nullable|image',
             'altitude' => 'max:191',
         ]);
 
@@ -142,24 +163,26 @@ class PlacesController extends Controller
         $place->slug = $slug;
         $place->city_id = $cityId;
         $place->country_id = $countryId;
+        $place->activity_id = $request->activity_id;
+        $place->region_id = $request->region_id;
         $place->altitude = $request->altitude;
         $place->place_type_id = $request->place_type_id;
         $place->description = $request->description;
 
-        if (!empty($request['image'])){
+        if (!empty($request['cover_image'])) {
 
-            $imageToBeDeleted=$place->image;
+            $cover_imageToBeDeleted = $place->cover_image;
 
-            $place->image = image_upload('image', $request);
+            $place->cover_image = image_upload('cover_image', $request);
 
-            //delete Image too
-            Storage::disk('public')->delete('images/'.$imageToBeDeleted);
+            //delete cover_image too
+            Storage::disk('public')->delete('images/' . $cover_imageToBeDeleted);
         }
 
         $place->save();
 
         Session::flash('success', 'Activity Was Updated!');
-        return redirect()->route('leisure.edit',$place->id);
+        return redirect()->route('leisure.edit', $place->id);
     }
 
     /**
@@ -168,19 +191,19 @@ class PlacesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($activity, $id)
     {
         //
         $place = Place::findOrFail($id);
 
-        $imageToBeDeleted=$place->image;
+        $cover_imageToBeDeleted = $place->cover_image;
 
         $place->delete();
 
-        //delete Image too
-        Storage::disk('public')->delete('images/'.$imageToBeDeleted);
+        //delete cover_image too
+        Storage::disk('public')->delete('images/' . $cover_imageToBeDeleted);
 
         Session::flash('success', 'Activity Was Deleted!');
-        return redirect()->route('leisure.index');
+        return redirect()->route('place.index', $activity);
     }
 }

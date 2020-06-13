@@ -7,9 +7,9 @@
                     {!! Form::label('client_name', 'Client Name') !!}
                     {!! Form::text('client_name', null, ['class' => 'form-control']) !!}
                     @if($errors->has('client_name'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('client_name') }}
-                        </div>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('client_name') }}
+                    </div>
                     @endif
                 </div>
 
@@ -49,9 +49,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="md-form mt-0 mb-0">
-                    <div class="form-actions">
-                        {!! Form::button($formMode === 'edit' ? 'Update' : 'Create', ['type'=>'submit', 'class' => 'btn btn-info btn-sm btn-inline-block']) !!}
-                        <a href="{{route('testimonial.index')}}" class="btn btn-link btn-secondary btn-sm btn-inline-block text-white">Cancel</a>
+                    <div class="form-actions row m-0">
+                        {!! Form::button($formMode === 'edit' ? 'Update' : 'Create', ['type'=>'submit', 'class' => 'btn
+                        btn-secondary btn-sm col-md-6']) !!}
+                        <a href="{{route('testimonial.index')}}" class="btn btn-danger btn-sm col-md-6">Cancel</a>
                     </div>
 
                 </div>

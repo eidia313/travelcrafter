@@ -40,13 +40,18 @@ class Package extends Model
         return $this->belongsTo('App\Checklists\ChecklistGroup');
     }
 
-    public function images(){
-        return $this->hasMany('App\Packages\PackageGallery','package_id');
-    }
-    
-    public function group()
+    public function images()
     {
-        return $this->belongsTo('App\Checklists\CheckListGroup','checklist_group_id');
+        return $this->hasMany('App\Packages\PackageGallery', 'package_id');
     }
 
+    public function group()
+    {
+        return $this->belongsTo('App\Checklists\CheckListGroup', 'checklist_group_id');
+    }
+
+    public function placeType()
+    {
+        return $this->belongsTo('App\Places\PlaceType');
+    }
 }

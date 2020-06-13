@@ -4,8 +4,8 @@
 @if(Session::has('error'))
 <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}</p>
 @endif
-  <div class="row">
-    <div class="col-md-7">
+<div class="row">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
                 {!! Form::model($region, ['method'=>'PUT', 'route'=>['region.update', $region->id]]) !!}
@@ -20,5 +20,5 @@
         </div>
 
     </div>
-  </div>
+</div>
 @endsection

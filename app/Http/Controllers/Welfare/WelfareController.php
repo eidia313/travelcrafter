@@ -11,16 +11,17 @@ use App\Welfare\Welfare;
 class WelfareController extends Controller
 {
 
-  public function __construct(Welfare $welfare){
-    $this->welfare = $welfare;
-  }
+    public function __construct(Welfare $welfare)
+    {
+        $this->welfare = $welfare;
+    }
 
-  public function index()
-  {
-      //
-      $welfares = $this->welfare->orderBy('id', 'desc')->get();
-      return view('backend.welfares.welfare.index')->with(compact('welfares'));
-  }
+    public function index()
+    {
+        //
+        $welfares = $this->welfare->orderBy('id', 'desc')->get();
+        return view('backend.welfares.welfare.index')->with(compact('welfares'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -41,20 +42,23 @@ class WelfareController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'title' => 'required|unique:social_welfare',
-           'image' => 'required|image|mimes:png,jpg,jpeg|dimensions:min_width=100,min_height=100'
+            'title' => 'required|unique:social_welfare',
+            'altitude' => 'required',
+            'date' => 'required',
+            'sponsor' => 'required',
+            'image' => 'required|image|mimes:png,jpg,jpeg|dimensions:min_width=100,min_height=100'
         ]);
 
         //Handle File Upload
         $file = image_upload('image', $request);
-        
+
         $this->welfare->create([
-          'title' => $request['title'],
-          'altitude' => $request['altitude'],
-          'date' => $request['date'],
-          'sponsor' => $request['sponsor'],
-          'desc' => $request['desc'],
-          'image' => $file
+            'title' => $request['title'],
+            'altitude' => $request['altitude'],
+            'date' => $request['date'],
+            'sponsor' => $request['sponsor'],
+            'desc' => $request['desc'],
+            'image' => $file
         ]);
 
         return redirect()->route('welfare.index')->with('success', 'Welfare Successfully Created!');
@@ -79,8 +83,8 @@ class WelfareController extends Controller
      */
     public function edit($id)
     {
-      $welfare = $this->welfare->find($id);
-      return view('backend.welfares.welfare.edit')->with(compact('welfare'));
+        $welfare = $this->welfare->find($id);
+        return view('backend.welfares.welfare.edit')->with(compact('welfare'));
     }
 
     /**
@@ -92,20 +96,20 @@ class WelfareController extends Controller
      */
     public function update(Request $request, $id)
     {
-      try{
-        $welfare = $this->welfare->find($id);
-        $welfare->title = $request['title'];
-        $welfare->altitude = $request['altitude'];
-        $welfare->date = $request['date'];
-        $welfare->sponsor = $request['sponsor'];
-        $welfare->desc = $request['desc'];
-        if(!empty($request['image']))
-          $welfare->image = image_upload('image', $request);
-        $welfare->save();
-        return redirect()->route('welfare.index')->with('success', 'Welfare Successfully Updated!');
-      }catch(\Exception $e){
-        return redirect()->back()->with('error', 'Errors in field!');
-      }
+        try {
+            $welfare = $this->welfare->find($id);
+            $welfare->title = $request['title'];
+            $welfare->altitude = $request['altitude'];
+            $welfare->date = $request['date'];
+            $welfare->sponsor = $request['sponsor'];
+            $welfare->desc = $request['desc'];
+            if (!empty($request['image']))
+                $welfare->image = image_upload('image', $request);
+            $welfare->save();
+            return redirect()->route('welfare.index')->with('success', 'Welfare Successfully Updated!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Errors in field!');
+        }
     }
 
     /**
@@ -116,11 +120,11 @@ class WelfareController extends Controller
      */
     public function destroy($id)
     {
-      $welfare = $this->welfare->find($id);
-      //Delete File using Laravel Storage.
-      Storage::disk('public')->delete('images/'.$welfare->image);
-      $welfare->delete();
+        $welfare = $this->welfare->find($id);
+        //Delete File using Laravel Storage.
+        Storage::disk('public')->delete('images/' . $welfare->image);
+        $welfare->delete();
 
-      return redirect()->route('welfare.index')->with('success', 'Welfare Successfully Deleted!');
+        return redirect()->route('welfare.index')->with('success', 'Welfare Successfully Deleted!');
     }
 }

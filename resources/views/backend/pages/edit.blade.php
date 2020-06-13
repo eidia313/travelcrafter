@@ -2,19 +2,18 @@
 @section('pageTitle', 'Edit Page')
 
 @section('content')
-    {!! Form::model($page, [
-        'method'    =>  'PUT',
-        'url' => ['admin/pages', $page->id],
-        'files'=>true
-        ]) !!}
-        @include ('backend.pages.form', ['formMode' => 'edit'])
-    {!! Form::close() !!}
+{!! Form::model($page, [
+'method' => 'PUT',
+'url' => ['admin/pages', $page->id],
+'files'=>true
+]) !!}
+@include ('backend.pages.partials.form', ['formMode' => 'edit'])
+{!! Form::close() !!}
 @endsection
 
 @section('js')
-    <script>
-
-        function changeImage() {
+<script>
+    function changeImage() {
             $('#image').click();
         }
         $('#image').change(function () {
@@ -39,5 +38,5 @@
             $('#preview').attr('src', '{{ asset('backend/images/noimage.jpg') }}');
 //      $("#remove").val(1);
         }
-    </script>
+</script>
 @endsection

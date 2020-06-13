@@ -1,16 +1,15 @@
 @extends('backend.layouts.app')
-@section('pageTitle', 'Create Page')
+@section('pageTitle', 'Create FAQ')
 
 @section('content')
-    {!! Form::open(['route' => 'faq.store', 'files'=> true]) !!}
-        @include ('backend.faq.form', ['formMode' => 'create'])
-    {!! Form::close() !!}
+{!! Form::open(['route' => 'faq.store', 'files'=> true]) !!}
+@include ('backend.faq.form', ['formMode' => 'create'])
+{!! Form::close() !!}
 @endsection
 
 @section('js')
-    <script>
-
-        function changeImage() {
+<script>
+    function changeImage() {
             $('#image').click();
         }
         $('#image').change(function () {
@@ -35,5 +34,5 @@
             $('#preview').attr('src', '{{ asset('images/noimage.png') }}');
 //      $("#remove").val(1);
         }
-    </script>
+</script>
 @endsection

@@ -11,7 +11,7 @@ class Place extends Model
      */
     public function country()
     {
-        return $this->belongsTo('App\Destination\Country','country_id');
+        return $this->belongsTo('App\Destination\Country', 'country_id');
     }
 
     /**
@@ -19,11 +19,21 @@ class Place extends Model
      */
     public function city()
     {
-        return $this->belongsTo('App\Destination\City','city_id');
+        return $this->belongsTo('App\Destination\City', 'city_id');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo('App\Destination\Region');
     }
 
     public function placetype()
     {
         return $this->belongsTo('App\Places\PlaceType');
+    }
+
+    public function activity()
+    {
+        return $this->belongsTo('App\Activities\Activity');
     }
 }

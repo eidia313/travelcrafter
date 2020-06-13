@@ -26,4 +26,9 @@ class Region extends Model
     {
         return $this->hasMany('App\Packages\Package');
     }
+
+    public function places()
+    {
+        return $this->hasMany('App\Places\Place');
+    }
 }
